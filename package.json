@@ -1,14 +1,17 @@
 {
   "version": "0.1.0",
   "license": "MIT",
+  "name": "andrews-utils",
+  "author": "Andrew Stacy <ajstacy@gmail.com>",
   "main": "dist/index.js",
+  "module": "dist/andrews-utils.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist",
     "src"
   ],
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   },
   "scripts": {
     "start": "tsdx watch",
@@ -19,21 +22,25 @@
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
-  "peerDependencies": {},
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^8.1.0",
+    "husky": "^8.0.2",
+    "size-limit": "^8.1.0",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.4.1",
+    "typescript": "^4.8.4"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "tsdx lint"
     }
   },
   "prettier": {
-    "printWidth": 80,
+    "printWidth": 100,
     "semi": true,
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "andrews-utils",
-  "author": "Andrew Stacy <ajstacy@gmail.com>",
-  "module": "dist/andrews-utils.esm.js",
   "size-limit": [
     {
       "path": "dist/andrews-utils.cjs.production.min.js",
@@ -43,13 +50,5 @@
       "path": "dist/andrews-utils.esm.js",
       "limit": "10 KB"
     }
-  ],
-  "devDependencies": {
-    "@size-limit/preset-small-lib": "^8.1.0",
-    "husky": "^8.0.2",
-    "size-limit": "^8.1.0",
-    "tsdx": "^0.14.1",
-    "tslib": "^2.4.1",
-    "typescript": "^4.8.4"
-  }
+  ]
 }
