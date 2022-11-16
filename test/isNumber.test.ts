@@ -17,6 +17,6 @@ describe('number validation type guard', () => {
     expect(isNumber(NaN)).toBe(false);
   });
   it('validates that a value is not a number', () => {
-    expect(isNumber("NaN")).toBe(false);
+    expect(isNumber('NaN')).toBe(false);
   });
 });

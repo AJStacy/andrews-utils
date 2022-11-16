@@ -1,8 +1,8 @@
 import { hasOwnProperties } from '../src';
 
 const testObj = {
-  foo: "bar",
-  hello: "world",
+  foo: 'bar',
+  hello: 'world',
 };
 
 describe('hasOwnProperties type guard', () => {
