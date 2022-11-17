@@ -1,4 +1,4 @@
-import { isArray } from '../src';
+import { isArray } from '../../src';
 
 describe('array validation type guard', () => {
   it('validates that a value is an array', () => {

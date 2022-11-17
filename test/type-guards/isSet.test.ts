@@ -1,4 +1,4 @@
-import { isSet } from '../src';
+import { isSet } from '../../src';
 
 describe('type guard for verifying that values are set', () => {
   it('validates that a value is set', () => {

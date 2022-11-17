@@ -35,6 +35,8 @@ if (isObject(val) && hasOwnProperties(val, ['foo', 'hello'])) {
 }
 ```
 
+---
+
 ### hasOwnProperty
 
 This type guard validates that the provided object contains the provided property.
@@ -62,6 +64,8 @@ if (isObject(val) && hasOwnProperty(val, 'foo')) {
 }
 ```
 
+---
+
 ### isArray
 
 This type guard validates that the provided value is an array.
@@ -84,6 +88,8 @@ if (isArray(arr)) {
 }
 ```
 
+---
+
 ### isNumber
 
 This type guard validates that the provided value is a number.
@@ -105,6 +111,8 @@ if (isNumber(val)) {
   const answer = val * 2;
 }
 ```
+
+---
 
 ### isObject
 
@@ -131,6 +139,8 @@ if (isObject(val)) {
 }
 ```
 
+---
+
 ### isSet
 
 This type guard validates that the provided value is not undefined or null.
@@ -153,6 +163,8 @@ if (isSet<number>(val)) {
 }
 ```
 
+---
+
 ### isString
 
 This type guard validates that the provided value is a string.
@@ -173,4 +185,31 @@ const val: unknown = 'foo';
 if (isString(val)) {
   const chars = val.split('');
 }
+```
+
+---
+
+### safeJsonFetch
+
+Executes a standard fetch but returns the JSON response as unknown to force you to validate it.
+
+#### safeJsonFetch Interface
+
+```typescript
+async function safeJsonFetch(
+  input: RequestInfo | URL,
+  init?: RequestInit | undefined
+) => Promise<unknown>;
+```
+
+### safeJsonFetch Example
+
+```typescript
+import { safeJsonFetch } from 'andrews-utils';
+
+safeJsonFetch('https://example.com/user/1').then(json => {
+  const answer = json * 2;
+  // => TSError: Object is of type 'unknown'.ts(2571)
+  // This error is expected because json should be of type `unknown`.
+});
 ```

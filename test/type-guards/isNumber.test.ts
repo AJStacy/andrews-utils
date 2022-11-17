@@ -1,4 +1,4 @@
-import { isNumber } from '../src';
+import { isNumber } from '../../src';
 
 describe('number validation type guard', () => {
   it('validates that a value is a number', () => {

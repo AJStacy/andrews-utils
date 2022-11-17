@@ -1,4 +1,4 @@
-import { isString } from '../src';
+import { isString } from '../../src';
 
 describe('string validation type guard', () => {
   it('validates that a string of characters is a string', () => {

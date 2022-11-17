@@ -1,4 +1,4 @@
-import { hasOwnProperties } from '../src';
+import { hasOwnProperties } from '../../src';
 
 const testObj = {
   foo: 'bar',

@@ -1,4 +1,4 @@
-import { isObject } from '../src';
+import { isObject } from '../../src';
 
 const testObj = {
   foo: 'bar',
