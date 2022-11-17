@@ -1,103 +1,176 @@
-# TSDX User Guide
+# Andrew's Utils
 
-Congrats! You just saved yourself hours of work by bootstrapping this project with TSDX. Let’s get you oriented with what’s here and how to use it.
+A collection of random useful utility functions that you may not find in lodash. These utility functions are emitted as ES6 modules so that they are tree-shakable.
 
-> This TSDX setup is meant for developing libraries (not apps!) that can be published to NPM. If you’re looking to build a Node app, you could use `ts-node-dev`, plain `ts-node`, or simple `tsc`.
+## Type Guards
 
-> If you’re new to TypeScript, checkout [this handy cheatsheet](https://devhints.io/typescript)
+This utility library provides a series of generic TypeScript type guards for validating your data.
 
-## Commands
+### hasOwnProperties
 
-TSDX scaffolds your new library inside `/src`.
+This type guard validates that the provided object contains the provided property names.
 
-To run TSDX, use:
+#### hasOwnProperties Interface
 
-```bash
-npm start # or yarn start
+```typescript
+function hasOwnProperties<
+  X extends Record<any, unknown>,
+  Y extends PropertyKey,
+  A extends Y[]
+>(obj: X, props: A) => obj is X & Record<Y, unknown>;
 ```
 
-This builds to `/dist` and runs the project in watch mode so any edits you save inside `src` causes a rebuild to `/dist`.
+### hasOwnProperties Example
 
-To do a one-off build, use `npm run build` or `yarn build`.
+```typescript
+import { isObject, hasOwnProperties } from 'andrews-utils';
 
-To run tests, use `npm test` or `yarn test`.
+const val: unknown = {
+  foo: 'bar',
+  hello: 'world',
+};
 
-## Configuration
-
-Code quality is set up for you with `prettier`, `husky`, and `lint-staged`. Adjust the respective fields in `package.json` accordingly.
-
-### Jest
-
-Jest tests are set up to run with `npm test` or `yarn test`.
-
-### Bundle Analysis
-
-[`size-limit`](https://github.com/ai/size-limit) is set up to calculate the real cost of your library with `npm run size` and visualize the bundle with `npm run analyze`.
-
-#### Setup Files
-
-This is the folder structure we set up for you:
-
-```txt
-/src
-  index.tsx       # EDIT THIS
-/test
-  blah.test.tsx   # EDIT THIS
-.gitignore
-package.json
-README.md         # EDIT THIS
-tsconfig.json
-```
-
-### Rollup
-
-TSDX uses [Rollup](https://rollupjs.org) as a bundler and generates multiple rollup configs for various module formats and build settings. See [Optimizations](#optimizations) for details.
-
-### TypeScript
-
-`tsconfig.json` is set up to interpret `dom` and `esnext` types, as well as `react` for `jsx`. Adjust according to your needs.
-
-## Continuous Integration
-
-### GitHub Actions
-
-Two actions are added by default:
-
-- `main` which installs deps w/ cache, lints, tests, and builds on all pushes against a Node and OS matrix
-- `size` which comments cost comparison of your library on every pull request using [`size-limit`](https://github.com/ai/size-limit)
-
-## Optimizations
-
-Please see the main `tsdx` [optimizations docs](https://github.com/palmerhq/tsdx#optimizations). In particular, know that you can take advantage of development-only optimizations:
-
-```js
-// ./types/index.d.ts
-declare var __DEV__: boolean;
-
-// inside your code...
-if (__DEV__) {
-  console.log('foo');
+if (isObject(val) && hasOwnProperties(val, ['foo', 'hello'])) {
+  // -> do something with obj.foo or obj.hello
 }
 ```
 
-You can also choose to install and use [invariant](https://github.com/palmerhq/tsdx#invariant) and [warning](https://github.com/palmerhq/tsdx#warning) functions.
+### hasOwnProperty
 
-## Module Formats
+This type guard validates that the provided object contains the provided property.
 
-CJS, ESModules, and UMD module formats are supported.
+#### hasOwnProperty Interface
 
-The appropriate paths are configured in `package.json` and `dist/index.js` accordingly. Please report if any issues are found.
+```typescript
+function hasOwnProperty<X extends Record<any, unknown>, Y extends PropertyKey>(
+  obj: X,
+  prop: Y
+) => obj is X & Record<Y, unknown>;
+```
 
-## Named Exports
+### hasOwnProperty Example
 
-Per Palmer Group guidelines, [always use named exports.](https://github.com/palmerhq/typescript#exports) Code split inside your React app instead of your React library.
+```typescript
+import { isObject, hasOwnProperty } from 'andrews-utils';
 
-## Including Styles
+const val: unknown = {
+  foo: 'bar',
+  hello: 'world',
+};
 
-There are many ways to ship styles, including with CSS-in-JS. TSDX has no opinion on this, configure how you like.
+if (isObject(val) && hasOwnProperty(val, 'foo')) {
+}
+```
 
-For vanilla CSS, you can include it at the root directory and add it to the `files` section in your `package.json`, so that it can be imported separately by your users and run through their bundler's loader.
+### isArray
 
-## Publishing to NPM
+This type guard validates that the provided value is an array.
 
-We recommend using [np](https://github.com/sindresorhus/np).
+#### isArray Interface
+
+```typescript
+function isArray(value: unknown) => value is unknown[];
+```
+
+### isArray Example
+
+```typescript
+import { isArray } from 'andrews-utils';
+
+const arr: unknown = ['foo', 'bar'];
+
+if (isArray(arr)) {
+  arr.forEach(val => {});
+}
+```
+
+### isNumber
+
+This type guard validates that the provided value is a number.
+
+#### isNumber Interface
+
+```typescript
+function isNumber(value: unknown) => value is unknown[];
+```
+
+### isNumber Example
+
+```typescript
+import { isNumber } from 'andrews-utils';
+
+const val: unknown = 123;
+
+if (isNumber(val)) {
+  const answer = val * 2;
+}
+```
+
+### isObject
+
+This type guard validates that the provided value is an object.
+
+#### isObject Interface
+
+```typescript
+function isObject(value: unknown) => value is Record<string, unknown>;
+```
+
+### isObject Example
+
+```typescript
+import { isObject } from 'andrews-utils';
+
+const obj: unknown = {
+  foo: 'bar',
+};
+
+if (isObject(val)) {
+  // Do something with object with unknown properties.
+  // Usually you would combine this with the hasOwnProperties type guard.
+}
+```
+
+### isSet
+
+This type guard validates that the provided value is not undefined or null.
+
+#### isSet Interface
+
+```typescript
+function isSet<T>(value?: unknown) => value is NonNullable<T>;
+```
+
+### isSet Example
+
+```typescript
+import { isSet } from 'andrews-utils';
+
+const val: unknown = 123;
+
+if (isSet<number>(val)) {
+  const answer = val * 2;
+}
+```
+
+### isString
+
+This type guard validates that the provided value is a string.
+
+#### isString Interface
+
+```typescript
+function isString(value: unknown) => value is string;
+```
+
+### isString Example
+
+```typescript
+import { isString } from 'andrews-utils';
+
+const val: unknown = 'foo';
+
+if (isString(val)) {
+  const chars = val.split('');
+}
+```

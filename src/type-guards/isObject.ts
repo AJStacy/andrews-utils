@@ -1,8 +1,11 @@
 /**
  * Type guard that validates that a value is an Object.
  */
-export function isObject(val?: unknown): val is Record<string, unknown> {
+export function isObject(value?: unknown): value is Record<string, unknown> {
   return (
-    val !== undefined && val !== null && typeof val === 'object' && val?.constructor === Object
+    value !== undefined &&
+    value !== null &&
+    typeof value === 'object' &&
+    value?.constructor === Object
   );
 }
