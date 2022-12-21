@@ -97,7 +97,7 @@ This type guard validates that the provided value is a number.
 #### isNumber Interface
 
 ```typescript
-function isNumber(value: unknown) => value is unknown[];
+function isNumber(value: unknown) => value is number;
 ```
 
 ### isNumber Example
